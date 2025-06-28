@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSCameraUsageDescription</key>
+    <string>Room Cleaner needs camera access to photograph your room for AI analysis</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Room Cleaner needs photo library access to save before/after photos</string>
+</dict>
+</plist>
