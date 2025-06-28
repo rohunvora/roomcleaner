@@ -1,0 +1,232 @@
+{
+  "image_name": "who-am-i-based-on-my-relatively-messy-room-v0-jth3v408qnvc1.webp",
+  "image_path": "/Users/satoshi/roomcleaner/test_images/who-am-i-based-on-my-relatively-messy-room-v0-jth3v408qnvc1.webp",
+  "processing_time": 29.16,
+  "detection_result": {
+    "objects": [
+      {
+        "label": "white blinds",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 20,
+          "height": 30
+        },
+        "category": "furniture"
+      },
+      {
+        "label": "wall art",
+        "confidence": 0.85,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 10
+        },
+        "category": "misc"
+      },
+      {
+        "label": "ceiling posters",
+        "confidence": 0.8,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 100,
+          "height": 20
+        },
+        "category": "misc"
+      },
+      {
+        "label": "bed",
+        "confidence": 0.95,
+        "boundingBox": {
+          "x": 10,
+          "y": 20,
+          "width": 30,
+          "height": 20
+        },
+        "category": "furniture"
+      },
+      {
+        "label": "white comforter",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 10,
+          "y": 20,
+          "width": 30,
+          "height": 15
+        },
+        "category": "clothes"
+      },
+      {
+        "label": "blue pillow",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 20,
+          "y": 25,
+          "width": 10,
+          "height": 5
+        },
+        "category": "clothes"
+      },
+      {
+        "label": "yellow backpack",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 40,
+          "y": 40,
+          "width": 10,
+          "height": 10
+        },
+        "category": "personal_items"
+      },
+      {
+        "label": "pile of books",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 15,
+          "y": 30,
+          "width": 10,
+          "height": 10
+        },
+        "category": "books"
+      },
+      {
+        "label": "basket with items",
+        "confidence": 0.85,
+        "boundingBox": {
+          "x": 20,
+          "y": 35,
+          "width": 10,
+          "height": 10
+        },
+        "category": "misc"
+      },
+      {
+        "label": "keyboard",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 0,
+          "y": 40,
+          "width": 15,
+          "height": 10
+        },
+        "category": "electronics"
+      },
+      {
+        "label": "brown paper bag",
+        "confidence": 0.85,
+        "boundingBox": {
+          "x": 5,
+          "y": 50,
+          "width": 5,
+          "height": 10
+        },
+        "category": "misc"
+      },
+      {
+        "label": "yellow shopping bag",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 70,
+          "y": 70,
+          "width": 10,
+          "height": 10
+        },
+        "category": "misc"
+      },
+      {
+        "label": "art supplies",
+        "confidence": 0.85,
+        "boundingBox": {
+          "x": 80,
+          "y": 70,
+          "width": 10,
+          "height": 10
+        },
+        "category": "school_supplies"
+      },
+      {
+        "label": "green laundry basket",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 80,
+          "y": 20,
+          "width": 10,
+          "height": 20
+        },
+        "category": "misc"
+      },
+      {
+        "label": "mirror",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 90,
+          "y": 40,
+          "width": 10,
+          "height": 30
+        },
+        "category": "furniture"
+      },
+      {
+        "label": "floor papers",
+        "confidence": 0.85,
+        "boundingBox": {
+          "x": 50,
+          "y": 50,
+          "width": 10,
+          "height": 10
+        },
+        "category": "papers"
+      },
+      {
+        "label": "wooden floor",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 0,
+          "y": 50,
+          "width": 100,
+          "height": 50
+        },
+        "category": "furniture"
+      },
+      {
+        "label": "white dresser",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 10,
+          "y": 10,
+          "width": 20,
+          "height": 20
+        },
+        "category": "furniture"
+      },
+      {
+        "label": "decorative plants",
+        "confidence": 0.85,
+        "boundingBox": {
+          "x": 90,
+          "y": 10,
+          "width": 10,
+          "height": 20
+        },
+        "category": "misc"
+      },
+      {
+        "label": "lamp",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 90,
+          "y": 60,
+          "width": 10,
+          "height": 20
+        },
+        "category": "electronics"
+      }
+    ],
+    "totalObjectCount": 20,
+    "messLevel": "high"
+  },
+  "timestamp": "2025-06-28T15:18:25.522152"
+}

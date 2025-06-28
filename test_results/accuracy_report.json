@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-06-28T15:15:21.563748",
+  "total_images_processed": 6,
+  "successful_detections": 5,
+  "failed_detections": 1,
+  "total_objects_detected": 63,
+  "average_objects_per_image": 12.6,
+  "category_breakdown": {
+    "misc": 23,
+    "toiletries": 2,
+    "furniture": 10,
+    "books": 5,
+    "electronics": 11,
+    "clothes": 8,
+    "papers": 4
+  },
+  "confidence_distribution": {
+    "high": 61,
+    "medium": 2,
+    "low": 0
+  },
+  "failed_images": [
+    "iesll09jp2o21.webp"
+  ]
+}

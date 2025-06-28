@@ -1,7 +1,10 @@
 import SwiftUI
 
 struct AnalyzingView: View {
+    @EnvironmentObject var appState: AppState
     @State private var dots = ""
+    @State private var currentPass = 1
+    @State private var detectedObjectsCount = 0
     
     var body: some View {
         VStack(spacing: 40) {

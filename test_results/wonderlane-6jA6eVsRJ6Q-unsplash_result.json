@@ -1,0 +1,154 @@
+{
+  "image_name": "wonderlane-6jA6eVsRJ6Q-unsplash.jpg",
+  "image_path": "/Users/satoshi/roomcleaner/test_images/wonderlane-6jA6eVsRJ6Q-unsplash.jpg",
+  "processing_time": 16.68,
+  "detection_result": {
+    "objects": [
+      {
+        "label": "computer monitor",
+        "confidence": 0.95,
+        "boundingBox": {
+          "x": 30,
+          "y": 20,
+          "width": 10,
+          "height": 15
+        },
+        "category": "electronics"
+      },
+      {
+        "label": "keyboard",
+        "confidence": 0.92,
+        "boundingBox": {
+          "x": 50,
+          "y": 50,
+          "width": 20,
+          "height": 5
+        },
+        "category": "electronics"
+      },
+      {
+        "label": "mouse",
+        "confidence": 0.88,
+        "boundingBox": {
+          "x": 70,
+          "y": 50,
+          "width": 5,
+          "height": 5
+        },
+        "category": "electronics"
+      },
+      {
+        "label": "office chair",
+        "confidence": 0.97,
+        "boundingBox": {
+          "x": 60,
+          "y": 60,
+          "width": 20,
+          "height": 30
+        },
+        "category": "furniture"
+      },
+      {
+        "label": "stack of papers",
+        "confidence": 0.94,
+        "boundingBox": {
+          "x": 10,
+          "y": 30,
+          "width": 30,
+          "height": 20
+        },
+        "category": "papers"
+      },
+      {
+        "label": "water bottle",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 55,
+          "y": 40,
+          "width": 5,
+          "height": 10
+        },
+        "category": "misc"
+      },
+      {
+        "label": "CDs",
+        "confidence": 0.85,
+        "boundingBox": {
+          "x": 15,
+          "y": 35,
+          "width": 10,
+          "height": 5
+        },
+        "category": "misc"
+      },
+      {
+        "label": "books",
+        "confidence": 0.89,
+        "boundingBox": {
+          "x": 80,
+          "y": 70,
+          "width": 15,
+          "height": 20
+        },
+        "category": "books"
+      },
+      {
+        "label": "envelopes",
+        "confidence": 0.87,
+        "boundingBox": {
+          "x": 75,
+          "y": 60,
+          "width": 10,
+          "height": 10
+        },
+        "category": "papers"
+      },
+      {
+        "label": "speakers",
+        "confidence": 0.91,
+        "boundingBox": {
+          "x": 40,
+          "y": 30,
+          "width": 5,
+          "height": 10
+        },
+        "category": "electronics"
+      },
+      {
+        "label": "headphones",
+        "confidence": 0.86,
+        "boundingBox": {
+          "x": 65,
+          "y": 55,
+          "width": 5,
+          "height": 5
+        },
+        "category": "electronics"
+      },
+      {
+        "label": "sticky notes",
+        "confidence": 0.84,
+        "boundingBox": {
+          "x": 20,
+          "y": 25,
+          "width": 5,
+          "height": 5
+        },
+        "category": "papers"
+      },
+      {
+        "label": "cardboard boxes",
+        "confidence": 0.89,
+        "boundingBox": {
+          "x": 5,
+          "y": 70,
+          "width": 20,
+          "height": 20
+        },
+        "category": "misc"
+      }
+    ],
+    "totalObjectCount": 13
+  },
+  "timestamp": "2025-06-28T15:14:57.253736"
+}

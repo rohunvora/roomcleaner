@@ -20,6 +20,7 @@
 		1A0000021A000000000000001 /* CompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000022A000000000000001 /* CompletedView.swift */; };
 		1A0000023A000000000000001 /* AIAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000024A000000000000001 /* AIAnalyzer.swift */; };
 		1A0000044A000000000000001 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000045A000000000000001 /* MockData.swift */; };
+		1A0000047A000000000000001 /* VisionAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000048A000000000000001 /* VisionAnalyzer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		1A0000024A000000000000001 /* AIAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAnalyzer.swift; sourceTree = "<group>"; };
 		1A0000025A000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A0000045A000000000000001 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		1A0000048A000000000000001 /* VisionAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionAnalyzer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				1A0000024A000000000000001 /* AIAnalyzer.swift */,
+				1A0000048A000000000000001 /* VisionAnalyzer.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				1A0000021A000000000000001 /* CompletedView.swift in Sources */,
 				1A0000023A000000000000001 /* AIAnalyzer.swift in Sources */,
 				1A0000044A000000000000001 /* MockData.swift in Sources */,
+				1A0000047A000000000000001 /* VisionAnalyzer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

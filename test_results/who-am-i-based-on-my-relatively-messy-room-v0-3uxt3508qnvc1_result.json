@@ -1,0 +1,143 @@
+{
+  "image_name": "who-am-i-based-on-my-relatively-messy-room-v0-3uxt3508qnvc1.webp",
+  "image_path": "/Users/satoshi/roomcleaner/test_images/who-am-i-based-on-my-relatively-messy-room-v0-3uxt3508qnvc1.webp",
+  "processing_time": 15.55,
+  "detection_result": {
+    "objects": [
+      {
+        "label": "painting",
+        "confidence": 0.95,
+        "boundingBox": {
+          "x": 20,
+          "y": 0,
+          "width": 60,
+          "height": 30
+        },
+        "category": "misc"
+      },
+      {
+        "label": "pink teddy bear",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 60,
+          "y": 20,
+          "width": 10,
+          "height": 10
+        },
+        "category": "misc"
+      },
+      {
+        "label": "wooden mannequin",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 45,
+          "y": 25,
+          "width": 10,
+          "height": 20
+        },
+        "category": "misc"
+      },
+      {
+        "label": "vase with flowers",
+        "confidence": 0.95,
+        "boundingBox": {
+          "x": 40,
+          "y": 40,
+          "width": 20,
+          "height": 30
+        },
+        "category": "misc"
+      },
+      {
+        "label": "blue spray bottle",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 30,
+          "y": 60,
+          "width": 5,
+          "height": 10
+        },
+        "category": "toiletries"
+      },
+      {
+        "label": "green bottle",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 25,
+          "y": 60,
+          "width": 5,
+          "height": 10
+        },
+        "category": "toiletries"
+      },
+      {
+        "label": "open cabinet",
+        "confidence": 0.85,
+        "boundingBox": {
+          "x": 0,
+          "y": 60,
+          "width": 20,
+          "height": 40
+        },
+        "category": "furniture"
+      },
+      {
+        "label": "dumbbell",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 5,
+          "y": 80,
+          "width": 10,
+          "height": 10
+        },
+        "category": "misc"
+      },
+      {
+        "label": "books",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 70,
+          "y": 20,
+          "width": 10,
+          "height": 10
+        },
+        "category": "books"
+      },
+      {
+        "label": "brown paper bag",
+        "confidence": 0.85,
+        "boundingBox": {
+          "x": 60,
+          "y": 50,
+          "width": 15,
+          "height": 15
+        },
+        "category": "misc"
+      },
+      {
+        "label": "notebooks",
+        "confidence": 0.9,
+        "boundingBox": {
+          "x": 80,
+          "y": 90,
+          "width": 10,
+          "height": 10
+        },
+        "category": "books"
+      },
+      {
+        "label": "power cables",
+        "confidence": 0.85,
+        "boundingBox": {
+          "x": 50,
+          "y": 70,
+          "width": 20,
+          "height": 10
+        },
+        "category": "electronics"
+      }
+    ],
+    "totalObjectCount": 12
+  },
+  "timestamp": "2025-06-28T15:14:03.070553"
+}
