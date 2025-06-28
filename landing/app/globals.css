@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 10 10 10;
+    --foreground: 255 255 255;
+  }
+
+  body {
+    @apply bg-dark-bg text-white;
+  }
+}
+
+@layer components {
+  .glow-button {
+    @apply relative overflow-hidden;
+    background: linear-gradient(90deg, #17ff80 0%, #0fff70 100%);
+    box-shadow: 0 0 40px rgba(23, 255, 128, 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .glow-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 60px rgba(23, 255, 128, 0.7);
+  }
+
+  .glow-button:active {
+    transform: translateY(0);
+  }
+}

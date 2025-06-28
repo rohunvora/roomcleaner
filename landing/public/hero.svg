@@ -1,0 +1,59 @@
+<svg width="1200" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect fill="#0a0a0a" width="1200" height="600"/>
+  
+  <!-- Before side -->
+  <rect x="40" y="40" width="520" height="520" fill="#1a1a1a" rx="16"/>
+  <rect x="60" y="60" width="80" height="36" fill="rgba(0,0,0,0.8)" rx="8"/>
+  <text x="100" y="85" text-anchor="middle" fill="white" font-size="18" font-weight="bold">BEFORE</text>
+  
+  <!-- Messy room representation -->
+  <rect x="80" y="120" width="440" height="400" fill="#2a2a2a" rx="8"/>
+  <circle cx="150" cy="200" r="20" fill="#444"/>
+  <rect x="250" y="250" width="60" height="40" fill="#555"/>
+  <circle cx="400" cy="300" r="15" fill="#444"/>
+  <rect x="320" y="400" width="80" height="50" fill="#555"/>
+  <circle cx="180" cy="380" r="25" fill="#444"/>
+  
+  <!-- After side -->
+  <rect x="640" y="40" width="520" height="520" fill="#1a1a1a" rx="16"/>
+  <rect x="660" y="60" width="120" height="36" fill="rgba(0,0,0,0.8)" rx="8"/>
+  <text x="720" y="85" text-anchor="middle" fill="white" font-size="18" font-weight="bold">AI DETECTED</text>
+  
+  <!-- Same room with detection boxes -->
+  <rect x="680" y="120" width="440" height="400" fill="#2a2a2a" rx="8"/>
+  
+  <!-- Detection boxes with labels -->
+  <g>
+    <rect x="730" y="190" width="80" height="60" fill="rgba(23,255,128,0.1)" stroke="#17ff80" stroke-width="2"/>
+    <rect x="730" y="166" width="50" height="20" fill="#17ff80" rx="4"/>
+    <text x="755" y="180" text-anchor="middle" fill="black" font-size="12" font-weight="bold">shirt</text>
+  </g>
+  
+  <g>
+    <rect x="860" y="240" width="100" height="60" fill="rgba(23,255,128,0.1)" stroke="#17ff80" stroke-width="2"/>
+    <rect x="860" y="216" width="60" height="20" fill="#17ff80" rx="4"/>
+    <text x="890" y="230" text-anchor="middle" fill="black" font-size="12" font-weight="bold">laptop</text>
+  </g>
+  
+  <g>
+    <rect x="1000" y="280" width="60" height="50" fill="rgba(23,255,128,0.1)" stroke="#17ff80" stroke-width="2"/>
+    <rect x="1000" y="256" width="80" height="20" fill="#17ff80" rx="4"/>
+    <text x="1040" y="270" text-anchor="middle" fill="black" font-size="12" font-weight="bold">water bottle</text>
+  </g>
+  
+  <g>
+    <rect x="900" y="390" width="80" height="40" fill="rgba(23,255,128,0.1)" stroke="#17ff80" stroke-width="2"/>
+    <rect x="900" y="366" width="50" height="20" fill="#17ff80" rx="4"/>
+    <text x="925" y="380" text-anchor="middle" fill="black" font-size="12" font-weight="bold">papers</text>
+  </g>
+  
+  <g>
+    <rect x="750" y="370" width="70" height="40" fill="rgba(23,255,128,0.1)" stroke="#17ff80" stroke-width="2"/>
+    <rect x="750" y="346" width="55" height="20" fill="#17ff80" rx="4"/>
+    <text x="777" y="360" text-anchor="middle" fill="black" font-size="12" font-weight="bold">charger</text>
+  </g>
+  
+  <!-- Stats -->
+  <rect x="980" y="470" width="160" height="40" fill="rgba(0,0,0,0.8)" rx="8"/>
+  <text x="1060" y="496" text-anchor="middle" fill="#17ff80" font-size="24" font-weight="bold">23 items detected</text>
+</svg>
