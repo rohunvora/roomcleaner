@@ -1,0 +1,147 @@
+<svg width="1200" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#17ff80;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#0fff70;stop-opacity:0.1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect fill="#0a0a0a" width="1200" height="600"/>
+  
+  <!-- Gradient overlay -->
+  <rect x="0" y="0" width="1200" height="600" fill="url(#glowGrad)" opacity="0.2"/>
+  
+  <!-- Before Panel -->
+  <g transform="translate(40, 40)">
+    <!-- Panel background -->
+    <rect width="520" height="520" fill="#111111" rx="24" stroke="#222" stroke-width="1"/>
+    
+    <!-- Label -->
+    <rect x="20" y="20" width="100" height="40" fill="#000" rx="20" opacity="0.8"/>
+    <text x="70" y="45" text-anchor="middle" fill="white" font-family="system-ui" font-size="16" font-weight="600">BEFORE</text>
+    
+    <!-- Messy room visualization -->
+    <g transform="translate(40, 80)">
+      <!-- Floor -->
+      <rect x="0" y="340" width="440" height="80" fill="#1a1a1a"/>
+      
+      <!-- Bed -->
+      <rect x="240" y="200" width="180" height="140" fill="#2a2a2a" rx="8"/>
+      <rect x="250" y="210" width="160" height="120" fill="#333" rx="4"/>
+      
+      <!-- Desk -->
+      <rect x="20" y="180" width="140" height="80" fill="#2a2a2a" rx="8"/>
+      
+      <!-- Scattered items -->
+      <circle cx="100" cy="220" r="15" fill="#444" opacity="0.8"/>
+      <rect x="160" y="240" width="40" height="30" fill="#3a3a3a" rx="4" transform="rotate(15 180 255)"/>
+      <circle cx="320" cy="260" r="12" fill="#444" opacity="0.7"/>
+      <rect x="60" y="300" width="35" height="25" fill="#3a3a3a" rx="4" transform="rotate(-20 77 312)"/>
+      <circle cx="200" cy="320" r="18" fill="#333" opacity="0.6"/>
+      <rect x="340" y="310" width="50" height="20" fill="#444" rx="4" transform="rotate(25 365 320)"/>
+      <circle cx="420" cy="340" r="10" fill="#3a3a3a" opacity="0.8"/>
+      <rect x="120" y="350" width="30" height="40" fill="#333" rx="4" transform="rotate(-10 135 370)"/>
+      <circle cx="280" cy="380" r="14" fill="#444" opacity="0.7"/>
+      
+      <!-- More clutter -->
+      <rect x="30" y="360" width="25" height="15" fill="#3a3a3a" rx="2"/>
+      <rect x="180" y="370" width="20" height="25" fill="#444" rx="2" transform="rotate(30 190 382)"/>
+      <circle cx="380" cy="390" r="8" fill="#333"/>
+    </g>
+  </g>
+  
+  <!-- After Panel -->
+  <g transform="translate(640, 40)">
+    <!-- Panel background -->
+    <rect width="520" height="520" fill="#111111" rx="24" stroke="#17ff80" stroke-width="1" stroke-opacity="0.3"/>
+    
+    <!-- Label -->
+    <rect x="20" y="20" width="140" height="40" fill="#000" rx="20" opacity="0.8"/>
+    <text x="90" y="45" text-anchor="middle" fill="white" font-family="system-ui" font-size="16" font-weight="600">AI DETECTED</text>
+    
+    <!-- Same room with detection boxes -->
+    <g transform="translate(40, 80)">
+      <!-- Floor -->
+      <rect x="0" y="340" width="440" height="80" fill="#1a1a1a"/>
+      
+      <!-- Bed with box -->
+      <rect x="240" y="200" width="180" height="140" fill="#2a2a2a" rx="8"/>
+      <rect x="250" y="210" width="160" height="120" fill="#333" rx="4"/>
+      <rect x="240" y="200" width="180" height="140" fill="none" stroke="#17ff80" stroke-width="2" rx="8" filter="url(#glow)"/>
+      <rect x="240" y="176" width="50" height="20" fill="#17ff80" rx="10"/>
+      <text x="265" y="190" text-anchor="middle" fill="black" font-family="system-ui" font-size="12" font-weight="600">bed</text>
+      
+      <!-- Desk with box -->
+      <rect x="20" y="180" width="140" height="80" fill="#2a2a2a" rx="8"/>
+      <rect x="20" y="180" width="140" height="80" fill="none" stroke="#17ff80" stroke-width="2" rx="8" filter="url(#glow)"/>
+      <rect x="20" y="156" width="50" height="20" fill="#17ff80" rx="10"/>
+      <text x="45" y="170" text-anchor="middle" fill="black" font-family="system-ui" font-size="12" font-weight="600">desk</text>
+      
+      <!-- Detected items with boxes -->
+      <g>
+        <circle cx="100" cy="220" r="15" fill="#444" opacity="0.8"/>
+        <circle cx="100" cy="220" r="20" fill="none" stroke="#17ff80" stroke-width="2" filter="url(#glow)"/>
+        <rect x="75" y="196" width="50" height="20" fill="#17ff80" rx="10"/>
+        <text x="100" y="210" text-anchor="middle" fill="black" font-family="system-ui" font-size="12" font-weight="600">shirt</text>
+      </g>
+      
+      <g>
+        <rect x="160" y="240" width="40" height="30" fill="#3a3a3a" rx="4" transform="rotate(15 180 255)"/>
+        <rect x="155" y="235" width="50" height="40" fill="none" stroke="#17ff80" stroke-width="2" rx="4" transform="rotate(15 180 255)" filter="url(#glow)"/>
+        <rect x="145" y="216" width="70" height="20" fill="#17ff80" rx="10"/>
+        <text x="180" y="230" text-anchor="middle" fill="black" font-family="system-ui" font-size="12" font-weight="600">notebook</text>
+      </g>
+      
+      <g>
+        <circle cx="320" cy="260" r="12" fill="#444" opacity="0.7"/>
+        <circle cx="320" cy="260" r="17" fill="none" stroke="#17ff80" stroke-width="2" filter="url(#glow)"/>
+        <rect x="285" y="236" width="70" height="20" fill="#17ff80" rx="10"/>
+        <text x="320" y="250" text-anchor="middle" fill="black" font-family="system-ui" font-size="12" font-weight="600">water bottle</text>
+      </g>
+      
+      <g>
+        <rect x="60" y="300" width="35" height="25" fill="#3a3a3a" rx="4" transform="rotate(-20 77 312)"/>
+        <rect x="55" y="295" width="45" height="35" fill="none" stroke="#17ff80" stroke-width="2" rx="4" transform="rotate(-20 77 312)" filter="url(#glow)"/>
+        <rect x="52" y="276" width="50" height="20" fill="#17ff80" rx="10"/>
+        <text x="77" y="290" text-anchor="middle" fill="black" font-family="system-ui" font-size="12" font-weight="600">charger</text>
+      </g>
+      
+      <g>
+        <circle cx="200" cy="320" r="18" fill="#333" opacity="0.6"/>
+        <circle cx="200" cy="320" r="23" fill="none" stroke="#17ff80" stroke-width="2" filter="url(#glow)"/>
+        <rect x="175" y="296" width="50" height="20" fill="#17ff80" rx="10"/>
+        <text x="200" y="310" text-anchor="middle" fill="black" font-family="system-ui" font-size="12" font-weight="600">socks</text>
+      </g>
+      
+      <g>
+        <rect x="340" y="310" width="50" height="20" fill="#444" rx="4" transform="rotate(25 365 320)"/>
+        <rect x="335" y="305" width="60" height="30" fill="none" stroke="#17ff80" stroke-width="2" rx="4" transform="rotate(25 365 320)" filter="url(#glow)"/>
+        <rect x="340" y="286" width="50" height="20" fill="#17ff80" rx="10"/>
+        <text x="365" y="300" text-anchor="middle" fill="black" font-family="system-ui" font-size="12" font-weight="600">papers</text>
+      </g>
+    </g>
+    
+    <!-- Stats badge -->
+    <g transform="translate(340, 460)">
+      <rect width="160" height="50" fill="#000" rx="25" opacity="0.9"/>
+      <text x="80" y="32" text-anchor="middle" fill="#17ff80" font-family="system-ui" font-size="20" font-weight="700">23 items found</text>
+    </g>
+  </g>
+  
+  <!-- Center divider -->
+  <line x1="600" y1="100" x2="600" y2="500" stroke="#222" stroke-width="1"/>
+  
+  <!-- VS badge -->
+  <g transform="translate(580, 280)">
+    <circle cx="20" cy="20" r="25" fill="#0a0a0a" stroke="#333" stroke-width="2"/>
+    <text x="20" y="26" text-anchor="middle" fill="#666" font-family="system-ui" font-size="18" font-weight="600">VS</text>
+  </g>
+</svg>
