@@ -1,7 +1,3 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-
 interface DetectionBoxProps {
   x: number
   y: number
@@ -31,36 +27,17 @@ export default function DetectionBox({
   delay,
   isAnimating
 }: DetectionBoxProps) {
-  const [isVisible, setIsVisible] = useState(false)
-  
-  useEffect(() => {
-    if (isAnimating) {
-      const timer = setTimeout(() => {
-        setIsVisible(true)
-      }, delay)
-      
-      return () => {
-        clearTimeout(timer)
-        setIsVisible(false)
-      }
-    } else {
-      setIsVisible(false)
-    }
-  }, [isAnimating, delay])
-  
   const color = categoryColors[category]
   
   return (
     <div
-      className="absolute"
+      className="absolute opacity-0 animate-[boxAppear_0.3s_ease-out_forwards]"
       style={{
         left: `${x}%`,
         top: `${y}%`,
         width: `${width}%`,
         height: `${height}%`,
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'scale(1)' : 'scale(0.9)',
-        transition: 'all 0.3s ease-out',
+        animationDelay: `${delay}ms`,
       }}
     >
       {/* Box */}

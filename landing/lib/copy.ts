@@ -1,97 +1,98 @@
 export const copy = {
   hero: {
-    title: "Your messy room, fixed in 60 seconds.",
-    subtitle: "Snap 5 photos → AI sends you a step-by-step storage map. Stop hunting for chargers and hoodies.",
-    cta: "Sign up for beta",
+    title: "A simple system to organize your room using photos",
+    subtitle: "Room Cleaner helps you assign everything a place. You take photos, we help you map where things should go. Then you just follow the plan.",
+    cta: "Get early access",
+    ctaSubtext: "Built for people who've tried everything else.",
     ctaLoading: "...",
     successMessage: "✓ You're on the list! Check your email."
   },
   
   howItWorks: {
-    title: "How it works",
+    title: "Photos in. System out.",
     steps: [
       {
-        number: "1",
-        title: "Shoot",
-        description: "Take up to 5 photos of any corner, drawer, or closet."
+        emoji: "📸",
+        title: "Snap 5–10 photos",
+        description: "Just take wide shots of your room from different angles."
       },
       {
-        number: "2", 
-        title: "We label",
-        description: "Our vision model tags every item and finds the optimal storage layout.",
-        note: "Processing < 30 sec per photo. Stored encrypted, deleted on request."
+        emoji: "🗺️", 
+        title: "Get your layout",
+        description: "Our AI identifies items and creates a personalized map for your space."
       },
       {
-        number: "3",
-        title: "You act",
-        description: "Follow the plan; tap \"done\" to archive and revisit anytime."
+        emoji: "✅",
+        title: "Follow your plan",
+        description: "Put stuff where it belongs. Use your phone to remember where everything is."
+      }
+    ],
+    clarifier: "No hardware. No extra cleaning tools. Just your phone."
+  },
+  
+  whyMessHappens: {
+    title: "You're not disorganized — your space is unassigned.",
+    reasons: [
+      {
+        problem: "No clear home for anything",
+        result: "So stuff ends up everywhere."
+      },
+      {
+        problem: "Cleaning takes too much thinking",
+        result: "So you avoid it."
+      },
+      {
+        problem: "Systems break fast",
+        result: "So you give up."
       }
     ]
   },
   
-  benefits: {
-    title: "Why sign up now",
-    items: [
-      {
-        problem: "Always misplacing stuff →",
-        solution: "Know exactly which drawer your passport lives in—without tearing the room apart."
-      },
-      {
-        problem: "Weekend deep-cleans dragging on →",
-        solution: "Turn a 4-hour Sunday clean into 40 minutes."
-      },
-      {
-        problem: "Anxiety from clutter →",
-        solution: "External order → internal calm. Science backs it; try and feel the delta."
-      }
+  whatYouGet: {
+    title: "Your room, documented.",
+    features: [
+      "Visual record of what's where",
+      "Personalized zones for each item type",
+      "A plan you can reference later",
+      "No judgment, no instructions to \"just declutter\""
     ]
   },
   
   testimonials: [
     {
-      quote: "I've suffered from being messy my whole life, now I have a place for everything.",
-      author: "beta user #17"
+      quote: "It gave me a starting point when I had none. That's what I needed.",
+      author: "Real user, ADHD, living alone"
     },
     {
-      quote: "This made my brain more organized in the process.",
-      author: "beta user #42"
+      quote: "Now I don't re-do the same cleanup every week.",
+      author: "Beta tester #4"
     }
   ],
   
-  faq: {
-    title: "FAQ",
-    items: [
-      {
-        question: "Is there an app yet?",
-        answer: "We're finishing iOS TestFlight. Early buyers get invites first."
-      },
-      {
-        question: "What if the AI misses stuff?",
-        answer: "You can drag boxes or add items manually; we retrain on every correction."
-      },
-      {
-        question: "Can I delete my photos?",
-        answer: "Yes—one tap purge in account settings or email us."
-      },
-      {
-        question: "Refund policy?",
-        answer: "Full refund within 14 days—no questions asked."
-      }
-    ]
+  pricing: {
+    title: "$9/month. Built for people who want to fix the mess, not study it.",
+    price: "$9",
+    period: "/month",
+    features: [
+      "Unlimited room scans",
+      "Search your visual map anytime",
+      "Adjust layout as things change"
+    ],
+    cta: "Start 14-day trial"
   },
   
   finalCta: {
-    title: "Stop losing things. Start organizing.",
-    button: "Get beta access",
-    successMessage: "✓ Check your email for beta access"
+    title: "Organizing sucks. This helps.",
+    button: "Get early access",
+    successMessage: "✓ Check your email for early access"
   },
   
   footer: {
-    tagline: "Built in NYC by ex-messy people.",
+    tagline: "Made with ♥ by fellow messy humans",
     links: {
       privacy: "Privacy",
       terms: "Terms",
-      email: "emailrohun@gmail.com"
+      email: "hello@roomcleaner.ai"
     }
   },
   

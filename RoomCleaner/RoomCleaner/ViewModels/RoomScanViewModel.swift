@@ -13,7 +13,7 @@ class RoomScanViewModel: ObservableObject {
         "Drawers/Storage"
     ]
     
-    let minimumPhotos = 4
+    let minimumPhotos = 1
     
     private let instructions = [
         "Let's start with an overview of your room",
@@ -41,16 +41,8 @@ class RoomScanViewModel: ObservableObject {
     }
     
     func analyzeRoom(photos: [RoomPhoto], appState: AppState) {
-        // This will be replaced with actual AI analysis
-        Task {
-            do {
-                let plan = try await AIAnalyzer.shared.analyzeRoom(photos: photos)
-                await MainActor.run {
-                    appState.startCleaning(with: plan)
-                }
-            } catch {
-                print("Analysis failed: \(error)")
-            }
-        }
+        // This is now handled by AnalyzingView which uses MultiPassVisionAnalyzer
+        // Just transition to the analyzing phase
+        appState.currentPhase = .analyzing
     }
 }

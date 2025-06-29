@@ -1,0 +1,9 @@
+// Configuration.xcconfig.template
+// Copy this file to Configuration.xcconfig and add your actual API key
+// DO NOT commit Configuration.xcconfig to version control
+
+// OpenAI API Configuration
+OPENAI_API_KEY = your-openai-api-key-here
+
+// Other configuration values
+APP_ENVIRONMENT = development

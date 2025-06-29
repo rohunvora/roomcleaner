@@ -11,30 +11,14 @@ struct ContentView: View {
             case .scanning:
                 RoomScanView()
             case .analyzing:
-                MultiPassAnalyzingView()
+                AnalyzingView()
             case .labeling:
-                if let photo = appState.roomPhotos.first {
-                    DetectionOverlayView(
-                        image: photo.image,
-                        detectedObjects: appState.detectedObjects,
-                        allObjects: $appState.detectedObjects
-                    )
-                    .overlay(alignment: .topTrailing) {
-                        Button("Done Adding") {
-                            appState.completeLabelingPhase(with: appState.detectedObjects)
-                        }
-                        .font(.headline)
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                        .padding()
-                    }
-                }
-            case .cleaning:
+                // TODO: Add manual item addition view
                 CleaningView()
+            case .cleaning:
+                DelightfulCleaningView()
             case .completed:
-                CompletedView()
+                DelightfulCompletedView()
             }
         }
         .animation(.easeInOut, value: appState.currentPhase)

@@ -4,7 +4,7 @@ struct RoomScanView: View {
     @EnvironmentObject var appState: AppState
     @StateObject private var scanViewModel = RoomScanViewModel()
     @State private var showingCamera = false
-    @State private var showingDemoAlert = false
+    @State private var showingTestImagePicker = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -37,11 +37,15 @@ struct RoomScanView: View {
                     
                     // Add Photo Button
                     Button(action: { 
-                        if MockData.demoMode {
-                            showingDemoAlert = true
+                        #if DEBUG
+                        if MockData.testModeEnabled {
+                            showingTestImagePicker = true
                         } else {
                             showingCamera = true
                         }
+                        #else
+                        showingCamera = true
+                        #endif
                     }) {
                         VStack(spacing: 10) {
                             Image(systemName: "camera.fill")
@@ -90,19 +94,80 @@ struct RoomScanView: View {
                 scanViewModel.updateInstructions(photoCount: appState.roomPhotos.count)
             }
         }
-        .alert("Demo Mode", isPresented: $showingDemoAlert) {
-            Button("Use Mock Image") {
+        .sheet(isPresented: $showingTestImagePicker) {
+            TestImagePickerSheet { selectedImage in
                 let area = scanViewModel.getCurrentArea(photoCount: appState.roomPhotos.count)
-                let mockImage = MockData.generateMockRoomImage(for: area)
-                appState.roomPhotos.append(RoomPhoto(image: mockImage, area: area))
+                appState.roomPhotos.append(RoomPhoto(image: selectedImage, area: area))
                 scanViewModel.updateInstructions(photoCount: appState.roomPhotos.count)
             }
-            Button("Select from Library") {
-                showingCamera = true
+        }
+    }
+}
+
+// Sheet for picking individual test images
+struct TestImagePickerSheet: View {
+    @Environment(\.dismiss) var dismiss
+    let onImageSelected: (UIImage) -> Void
+    
+    var body: some View {
+        NavigationView {
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                    ForEach(MockData.testImages, id: \.filename) { testImage in
+                        Button(action: {
+                            if let image = MockData.loadTestImage(testImage.filename) {
+                                onImageSelected(image)
+                                dismiss()
+                            }
+                        }) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                // Image preview
+                                if let image = MockData.loadTestImage(testImage.filename) {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(height: 150)
+                                        .clipped()
+                                        .cornerRadius(8)
+                                } else {
+                                    Rectangle()
+                                        .fill(Color.gray.opacity(0.3))
+                                        .frame(height: 150)
+                                        .cornerRadius(8)
+                                        .overlay(
+                                            Image(systemName: "photo")
+                                                .foregroundColor(.gray)
+                                        )
+                                }
+                                
+                                // Info
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(testImage.displayName)
+                                        .font(.caption)
+                                        .fontWeight(.medium)
+                                        .foregroundColor(.primary)
+                                    
+                                    Text(testImage.description)
+                                        .font(.caption2)
+                                        .foregroundColor(.secondary)
+                                }
+                                .padding(.horizontal, 4)
+                            }
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
+                .padding()
             }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text("You're in demo mode. Choose how to add photos.")
+            .navigationTitle("Select Test Image")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+            }
         }
     }
 }

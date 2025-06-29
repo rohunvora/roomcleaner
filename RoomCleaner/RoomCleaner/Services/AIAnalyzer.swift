@@ -14,6 +14,7 @@ class AIAnalyzer {
                 CleaningTask(
                     title: "Pick up clothes from floor",
                     items: ["Blue t-shirt near desk", "Jeans by the bed", "Socks under chair"],
+                    detectedItems: [],  // Mock data - no real items
                     category: "Clothes",
                     estimatedMinutes: 5,
                     referenceImage: photos.first?.image
@@ -21,6 +22,7 @@ class AIAnalyzer {
                 CleaningTask(
                     title: "Organize desk area",
                     items: ["Stack papers together", "Put pens in holder", "Clear water bottles"],
+                    detectedItems: [],  // Mock data - no real items
                     category: "Workspace",
                     estimatedMinutes: 8,
                     referenceImage: photos.first(where: { $0.area.contains("Desk") })?.image
@@ -28,6 +30,7 @@ class AIAnalyzer {
                 CleaningTask(
                     title: "Clear trash and recyclables",
                     items: ["Empty water bottles", "Food wrappers", "Old receipts"],
+                    detectedItems: [],  // Mock data - no real items
                     category: "Trash",
                     estimatedMinutes: 3,
                     referenceImage: nil
@@ -35,6 +38,7 @@ class AIAnalyzer {
                 CleaningTask(
                     title: "Organize electronics",
                     items: ["Untangle charging cables", "Put headphones in case", "Organize adapters"],
+                    detectedItems: [],  // Mock data - no real items
                     category: "Electronics",
                     estimatedMinutes: 5,
                     referenceImage: nil
@@ -42,6 +46,7 @@ class AIAnalyzer {
                 CleaningTask(
                     title: "Make bed and arrange pillows",
                     items: ["Straighten sheets", "Fluff pillows", "Fold blanket"],
+                    detectedItems: [],  // Mock data - no real items
                     category: "Bed",
                     estimatedMinutes: 3,
                     referenceImage: photos.first(where: { $0.area.contains("Bed") })?.image
@@ -50,10 +55,10 @@ class AIAnalyzer {
             totalItems: 16,
             estimatedTime: 24,
             categories: [
-                ItemCategory(name: "Clothes", itemCount: 5, priority: 1),
-                ItemCategory(name: "Electronics", itemCount: 4, priority: 2),
-                ItemCategory(name: "Papers", itemCount: 3, priority: 3),
-                ItemCategory(name: "Trash", itemCount: 4, priority: 4)
+                CategoryCount(name: "Clothes", itemCount: 5, priority: 1),
+                CategoryCount(name: "Electronics", itemCount: 4, priority: 2),
+                CategoryCount(name: "Papers", itemCount: 3, priority: 3),
+                CategoryCount(name: "Trash", itemCount: 4, priority: 4)
             ]
         )
     }

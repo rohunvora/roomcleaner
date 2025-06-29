@@ -120,10 +120,33 @@ SLACK_WEBHOOK_URL= (optional)
 - Multi-pass detection system (placeholder implementation)
 - Manual item addition UI
 - Demo mode with realistic mock data
-- Landing page with waitlist
+- Landing page with waitlist and animated detection demo
+- Server-side rendered landing page with pure CSS animations
+
+**Landing Page Features:**
+- Animated detection demo showing AI in action
+- 30+ items detected with staggered animations
+- Category-based color coding for detected items
+- Responsive design with lazy loading
+- Accessibility features (respects prefers-reduced-motion)
 
 **Needs Implementation:**
 - Real OpenAI API integration (currently returns mock data)
 - Data persistence between sessions
+- Zone assignment logic ("homes" for items)
+- Visual organization map overlay
 - Before/after photo comparisons
 - Voice search for finding specific items
+- Smart contextual tips
+
+## MVP Implementation Plan
+
+The project has a detailed 5-week implementation plan to deliver on landing page promises:
+
+**Week 1:** Core AI Detection - Real OpenAI API integration
+**Week 2:** Organization Intelligence - Zone assignment system
+**Week 3:** Visual Organization Map - Show WHERE to put things
+**Week 4:** Data Persistence - Remember everything between sessions
+**Week 5:** Smart Tips & Polish - Contextual advice and UX refinement
+
+Target metrics: 70%+ detection accuracy, <$0.50 per room scan, 90%+ task completion rate

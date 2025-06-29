@@ -19,8 +19,14 @@
 		1A0000019A000000000000001 /* CleaningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020A000000000000001 /* CleaningView.swift */; };
 		1A0000021A000000000000001 /* CompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000022A000000000000001 /* CompletedView.swift */; };
 		1A0000023A000000000000001 /* AIAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000024A000000000000001 /* AIAnalyzer.swift */; };
+		1A0000056A000000000000001 /* DelightfulCleaningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000057A000000000000001 /* DelightfulCleaningView.swift */; };
+		1A0000058A000000000000001 /* DelightfulCompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000059A000000000000001 /* DelightfulCompletedView.swift */; };
 		1A0000044A000000000000001 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000045A000000000000001 /* MockData.swift */; };
 		1A0000047A000000000000001 /* VisionAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000048A000000000000001 /* VisionAnalyzer.swift */; };
+		1A0000050A000000000000001 /* MultiPassVisionAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000051A000000000000001 /* MultiPassVisionAnalyzer.swift */; };
+		1A0000052A000000000000001 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000053A000000000000001 /* OpenAIService.swift */; };
+		1A0000054A000000000000001 /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000055A000000000000001 /* APIConfiguration.swift */; };
+		740405382E10E40300336144 /* Configuration.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 740405372E10E40300336144 /* Configuration.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +46,12 @@
 		1A0000025A000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A0000045A000000000000001 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		1A0000048A000000000000001 /* VisionAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionAnalyzer.swift; sourceTree = "<group>"; };
+		1A0000051A000000000000001 /* MultiPassVisionAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPassVisionAnalyzer.swift; sourceTree = "<group>"; };
+		1A0000053A000000000000001 /* OpenAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
+		1A0000055A000000000000001 /* APIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfiguration.swift; sourceTree = "<group>"; };
+		1A0000057A000000000000001 /* DelightfulCleaningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelightfulCleaningView.swift; sourceTree = "<group>"; };
+		1A0000059A000000000000001 /* DelightfulCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelightfulCompletedView.swift; sourceTree = "<group>"; };
+		740405372E10E40300336144 /* Configuration.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Configuration.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,8 +76,10 @@
 		1A0000028A000000000000001 /* RoomCleaner */ = {
 			isa = PBXGroup;
 			children = (
+				740405372E10E40300336144 /* Configuration.xcconfig */,
 				1A0000002A000000000000001 /* RoomCleanerApp.swift */,
 				1A0000004A000000000000001 /* ContentView.swift */,
+				1A0000049A000000000000001 /* Config */,
 				1A0000030A000000000000001 /* Models */,
 				1A0000031A000000000000001 /* Views */,
 				1A0000032A000000000000001 /* ViewModels */,
@@ -101,7 +115,9 @@
 				1A0000016A000000000000001 /* CameraView.swift */,
 				1A0000018A000000000000001 /* AnalyzingView.swift */,
 				1A0000020A000000000000001 /* CleaningView.swift */,
+				1A0000057A000000000000001 /* DelightfulCleaningView.swift */,
 				1A0000022A000000000000001 /* CompletedView.swift */,
+				1A0000059A000000000000001 /* DelightfulCompletedView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -119,6 +135,8 @@
 			children = (
 				1A0000024A000000000000001 /* AIAnalyzer.swift */,
 				1A0000048A000000000000001 /* VisionAnalyzer.swift */,
+				1A0000051A000000000000001 /* MultiPassVisionAnalyzer.swift */,
+				1A0000053A000000000000001 /* OpenAIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -129,6 +147,14 @@
 				1A0000045A000000000000001 /* MockData.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		1A0000049A000000000000001 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				1A0000055A000000000000001 /* APIConfiguration.swift */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A0000005A000000000000001 /* Assets.xcassets in Resources */,
+				740405382E10E40300336144 /* Configuration.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +240,11 @@
 				1A0000023A000000000000001 /* AIAnalyzer.swift in Sources */,
 				1A0000044A000000000000001 /* MockData.swift in Sources */,
 				1A0000047A000000000000001 /* VisionAnalyzer.swift in Sources */,
+				1A0000050A000000000000001 /* MultiPassVisionAnalyzer.swift in Sources */,
+				1A0000052A000000000000001 /* OpenAIService.swift in Sources */,
+				1A0000054A000000000000001 /* APIConfiguration.swift in Sources */,
+				1A0000056A000000000000001 /* DelightfulCleaningView.swift in Sources */,
+				1A0000058A000000000000001 /* DelightfulCompletedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,20 +435,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1A0000039A000000000000001 /* Build configuration list for PBXProject "RoomCleaner" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1A0000040A000000000000001 /* Debug */,
-				1A0000041A000000000000001 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		1A0000035A000000000000001 /* Build configuration list for PBXNativeTarget "RoomCleaner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1A0000042A000000000000001 /* Debug */,
 				1A0000043A000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A0000039A000000000000001 /* Build configuration list for PBXProject "RoomCleaner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A0000040A000000000000001 /* Debug */,
+				1A0000041A000000000000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

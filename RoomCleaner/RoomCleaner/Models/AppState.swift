@@ -4,10 +4,11 @@ import UIKit
 class AppState: ObservableObject {
     @Published var currentPhase: CleaningPhase = .welcome
     @Published var roomPhotos: [RoomPhoto] = []
+    @Published var compressedPhotos: [UIImage] = []  // Compressed versions for accurate display
     @Published var cleaningPlan: CleaningPlan?
     @Published var currentTaskIndex: Int = 0
     @Published var completedTasks: Set<String> = []
-    @Published var detectedObjects: [MultiPassVisionAnalyzer.DetectedObject] = []
+    @Published var detectedObjects: [DetectedItem] = []
     @Published var currentAnalyzingPhoto: RoomPhoto?
     
     enum CleaningPhase {
@@ -22,13 +23,14 @@ class AppState: ObservableObject {
     func startScanning() {
         currentPhase = .scanning
         roomPhotos = []
+        compressedPhotos = []  // Clear compressed photos too
     }
     
     func completeScanning() {
         currentPhase = .analyzing
     }
     
-    func completeLabelingPhase(with finalObjects: [MultiPassVisionAnalyzer.DetectedObject]) {
+    func completeLabelingPhase(with finalObjects: [DetectedItem]) {
         detectedObjects = finalObjects
         // Generate cleaning plan based on detected objects
         generateCleaningPlan()
@@ -37,7 +39,7 @@ class AppState: ObservableObject {
     
     private func generateCleaningPlan() {
         // Group objects by category and location
-        var tasksByCategory: [String: [MultiPassVisionAnalyzer.DetectedObject]] = [:]
+        var tasksByCategory: [ItemCategory: [DetectedItem]] = [:]
         
         for object in detectedObjects {
             tasksByCategory[object.category, default: []].append(object)
@@ -48,9 +50,10 @@ class AppState: ObservableObject {
         
         for (category, objects) in tasksByCategory.sorted(by: { $0.value.count > $1.value.count }) {
             let task = CleaningTask(
-                title: "Organize \(category)",
+                title: "Organize \(category.displayName)",
                 items: objects.map { $0.label },
-                category: category.capitalized,
+                detectedItems: objects,
+                category: category.displayName,
                 estimatedMinutes: max(3, objects.count * 2),
                 referenceImage: currentAnalyzingPhoto?.image
             )
@@ -61,7 +64,7 @@ class AppState: ObservableObject {
             tasks: tasks,
             totalItems: detectedObjects.count,
             estimatedTime: tasks.reduce(0) { $0 + $1.estimatedMinutes },
-            categories: tasksByCategory.map { ItemCategory(name: $0.key, itemCount: $0.value.count, priority: 1) }
+            categories: tasksByCategory.map { CategoryCount(name: $0.key.displayName, itemCount: $0.value.count, priority: 1) }
         )
     }
     
@@ -102,19 +105,20 @@ struct CleaningPlan {
     let tasks: [CleaningTask]
     let totalItems: Int
     let estimatedTime: Int
-    let categories: [ItemCategory]
+    let categories: [CategoryCount]
 }
 
 struct CleaningTask: Identifiable {
     let id = UUID().uuidString
     let title: String
     let items: [String]
+    let detectedItems: [DetectedItem]
     let category: String
     let estimatedMinutes: Int
     let referenceImage: UIImage?
 }
 
-struct ItemCategory {
+struct CategoryCount {
     let name: String
     let itemCount: Int
     let priority: Int

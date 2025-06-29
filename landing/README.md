@@ -1,60 +1,39 @@
-# RoomCleaner Landing Page
+# Room Cleaner Landing Page
 
-Landing page for RoomCleaner AI - deployed at roomcleaner.ai
+Marketing website for Room Cleaner iOS app. Built with Next.js 14, Tailwind CSS, and Supabase.
 
-## Quick Deploy
+Live at: [roomcleaner.vercel.app](https://roomcleaner.vercel.app)
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
+## Development
 
-2. **Set up environment variables**
-   - Copy `.env.local.example` to `.env.local`
-   - Add your Supabase, Mailgun, and Slack credentials
-
-3. **Run locally**
-   ```bash
-   npm run dev
-   ```
-
-4. **Deploy to Vercel**
-   ```bash
-   vercel
-   ```
-
-## Environment Variables
-
-Required for production:
-- `NEXT_PUBLIC_SUPABASE_URL` - Supabase project URL
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anon key
-- `SLACK_WEBHOOK_URL` - Slack webhook for signup notifications
-- `MAILGUN_API_KEY` - Mailgun API key (optional for now)
-- `MAILGUN_DOMAIN` - Mailgun domain (optional for now)
-
-## Campaign Tracking
-
-Use UTM parameters for tracking:
-- `?utm_source=tiktok&utm_campaign=launch`
-- `?ad=tiktok1` (shorthand tracking)
-
-## Database Schema
-
-Create in Supabase:
-```sql
-CREATE TABLE waiting_list (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  email TEXT UNIQUE NOT NULL,
-  utm_source TEXT,
-  utm_medium TEXT,
-  utm_campaign TEXT,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Enable RLS
-ALTER TABLE waiting_list ENABLE ROW LEVEL SECURITY;
-
--- Allow inserts from anon users
-CREATE POLICY "Allow anonymous inserts" ON waiting_list
-  FOR INSERT WITH CHECK (true);
+```bash
+npm install
+npm run dev     # http://localhost:3000
 ```
+
+## Key Features
+
+- Server-side rendered for performance
+- Animated AI detection demo
+- Email waitlist signup
+- Mobile-optimized design
+
+## Configuration
+
+Create `.env.local`:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key
+```
+
+## Copy Management
+
+All website text is in `lib/copy.ts` for easy editing.
+
+## Deployment
+
+Deploys automatically to Vercel on push to main branch.
+
+---
+
+See [parent directory README](../README.md) for full project documentation.
