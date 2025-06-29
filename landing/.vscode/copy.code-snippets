@@ -1,0 +1,29 @@
+{
+  "Insert Copy": {
+    "prefix": "copy",
+    "body": [
+      "{copy.${1:section}.${2:key}}"
+    ],
+    "description": "Insert copy from centralized copy file"
+  },
+  
+  "Insert Copy with Fallback": {
+    "prefix": "copyf",
+    "body": [
+      "{copy.${1:section}.${2:key} || '${3:fallback text}'}"
+    ],
+    "description": "Insert copy with fallback text"
+  },
+  
+  "Map Copy Array": {
+    "prefix": "copymap",
+    "body": [
+      "{copy.${1:section}.map((item, index) => (",
+      "  <div key={index}>",
+      "    {item.${2:property}}",
+      "  </div>",
+      "))}"
+    ],
+    "description": "Map over copy array"
+  }
+} 

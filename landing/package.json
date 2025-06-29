@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export-copy": "node scripts/extract-copy.js",
+    "copy:export": "node scripts/extract-copy.js",
+    "copy:edit": "code lib/copy.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.3",

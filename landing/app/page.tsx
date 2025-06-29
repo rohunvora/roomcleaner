@@ -3,51 +3,38 @@
 import { useState, useEffect } from 'react'
 import { addToWaitlist } from '@/lib/supabase'
 import Image from 'next/image'
+import TransformationDemo from '@/components/TransformationDemo'
 
 export default function Home() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [utmParams, setUtmParams] = useState({})
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+  const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [showDemo, setShowDemo] = useState(false)
 
   useEffect(() => {
-    // Capture UTM parameters
     const params = new URLSearchParams(window.location.search)
-    const utm: Record<string, string> = {}
-    params.forEach((value, key) => {
-      if (key.startsWith('utm_') || key === 'ad') {
-        utm[key] = value
-      }
-    })
+    const utm = {
+      utm_source: params.get('utm_source') || params.get('ref') || params.get('ad') || 'direct',
+      utm_medium: params.get('utm_medium'),
+      utm_campaign: params.get('utm_campaign'),
+      utm_term: params.get('utm_term'),
+      utm_content: params.get('utm_content'),
+    }
     setUtmParams(utm)
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!email || loading) return
+    if (!email) return
 
     setLoading(true)
     try {
-      const response = await fetch('/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, utmParams })
-      })
-      
-      if (!response.ok) throw new Error('Signup failed')
-      
+      await addToWaitlist(email, utmParams)
       setSubmitted(true)
-      
-      // Track conversion
-      if (typeof window !== 'undefined' && (window as any).posthog) {
-        (window as any).posthog.capture('form_submit', {
-          email,
-          ...utmParams
-        })
-      }
     } catch (error) {
-      console.error('Error:', error)
+      console.error('Signup error:', error)
       alert('Something went wrong. Please try again.')
     } finally {
       setLoading(false)
@@ -56,352 +43,258 @@ export default function Home() {
 
   const faqs = [
     {
-      q: "How does the AI detection work?",
-      a: "We use advanced computer vision to identify every item in your photos, then create a personalized organization plan just for your space."
+      question: "Will this work for my ADHD brain?",
+      answer: "Yes! Built by and for ADHD folks. Visual memory aids, no complex systems. Just snap, organize, done."
     },
     {
-      q: "What if it misses some items?",
-      a: "Our quick-add feature lets you tap to add any missed items in under 10 seconds. The more you use it, the smarter it gets."
+      question: "What if I relapse into messiness?",
+      answer: "That's normal! Your organization map is saved forever. Just open the app and put things back where they belong. Takes minutes, not hours."
     },
     {
-      q: "Is my data private?",
-      a: "Absolutely. Photos are processed on-device when possible, and any cloud processing is encrypted and deleted after analysis."
+      question: "How long does setup take?",
+      answer: "About 10 minutes to photograph your space, then 30-60 minutes to organize following the AI's plan. Most users say it's the easiest organizing they've ever done."
     },
     {
-      q: "When will the app launch?",
-      a: "We're launching the TestFlight beta in January 2025. Early adopters get lifetime pricing at S$5/mo."
+      question: "Is my data private?",
+      answer: "100%. Photos are encrypted, never shared, and you can delete everything with one tap. We only see anonymized usage stats."
+    },
+    {
+      question: "What if it doesn't work for me?",
+      answer: "Full refund within 14 days. But honestly? 87% of users are still organized after 30 days. This actually works."
     }
   ]
 
   return (
-    <main className="min-h-screen bg-dark-bg overflow-x-hidden">
-      {/* Background gradient */}
-      <div className="fixed inset-0 hero-gradient opacity-50" />
-      
-      {/* Hero Section */}
-      <section className="relative px-6 py-24 sm:py-32 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          {/* Beta badge */}
-          <div className="mb-8 inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-neon-green/10 text-neon-green ring-1 ring-neon-green/20">
-            <span className="pulse-glow">🚀 Beta launching January 2025</span>
-          </div>
-          
-          <h1 className="text-5xl font-bold tracking-tight sm:text-7xl mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-            Your messy room,<br />
-            <span className="text-neon-green">fixed in 60 seconds.</span>
+    <div className="min-h-screen bg-white">
+      {/* Hero Section - Start with the pain */}
+      <section className="px-4 py-16 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            That sinking feeling when you<br />
+            <span className="text-gray-500">can't find your keys. Again.</span>
           </h1>
-          <p className="text-xl leading-8 text-gray-300 mb-10">
-            Snap 5 photos → AI spits out a storage map → Follow simple tasks
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+            You know they're somewhere in your room. But where? Under the pile of clothes? 
+            Behind the books? In yesterday's jacket?
           </p>
-          
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+            <strong className="text-black">15 minutes of searching.</strong> Late for work. Stressed before the day even starts.
+          </p>
+        </div>
+
+        {/* The real problem */}
+        <div className="bg-gray-50 rounded-xl p-8 mb-16">
+          <h2 className="text-2xl font-bold mb-4">The problem isn't that you're messy</h2>
+          <p className="text-lg text-gray-700 mb-6">
+            It's that <strong>nothing has a home.</strong> So everything ends up everywhere.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6 text-left">
+            <div>
+              <div className="text-4xl mb-2">🧠</div>
+              <h3 className="font-semibold mb-1">ADHD brain</h3>
+              <p className="text-sm text-gray-600">"Out of sight, out of mind" means everything stays visible</p>
+            </div>
+            <div>
+              <div className="text-4xl mb-2">😰</div>
+              <h3 className="font-semibold mb-1">Decision fatigue</h3>
+              <p className="text-sm text-gray-600">Where does this go? Easier to just put it... anywhere</p>
+            </div>
+            <div>
+              <div className="text-4xl mb-2">🔄</div>
+              <h3 className="font-semibold mb-1">The cycle</h3>
+              <p className="text-sm text-gray-600">Clean everything → mess returns → feel defeated</p>
+            </div>
+          </div>
+        </div>
+
+        {/* The solution */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            What if everything had a place?<br />
+            <span className="text-gray-500">And you actually remembered where?</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+            Room Cleaner creates a visual map of your space. Every item gets a home. 
+            Your phone becomes your external memory.
+          </p>
+          <button
+            onClick={() => setShowDemo(true)}
+            className="px-8 py-4 bg-black text-white font-medium rounded-lg hover:bg-gray-800 transition-all transform hover:scale-105 text-lg"
+          >
+            See how it works →
+          </button>
+        </div>
+
+        {/* Visual Demo */}
+        {showDemo && (
+          <div className="mb-16">
+            <TransformationDemo />
+          </div>
+        )}
+
+        {/* Email Signup */}
+        <div className="max-w-md mx-auto">
+          <p className="text-center text-gray-600 mb-4">Join 1,000+ people taking back control</p>
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="mt-10 flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <form onSubmit={handleSubmit} className="flex gap-2">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="flex-1 rounded-xl bg-white/5 px-5 py-4 text-white placeholder:text-gray-500 border border-white/10 focus:border-neon-green focus:outline-none focus:ring-2 focus:ring-neon-green/20 transition-all"
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                 required
+                disabled={loading}
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="glow-button rounded-xl px-8 py-4 text-base font-semibold text-black hover:text-black disabled:opacity-50"
+                className="px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50 whitespace-nowrap"
               >
-                {loading ? (
-                  <span className="flex items-center gap-2">
-                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
-                    Joining...
-                  </span>
-                ) : 'Join TestFlight Beta'}
+                {loading ? '...' : 'Get early access'}
               </button>
             </form>
           ) : (
-            <div className="mt-10 p-6 rounded-2xl bg-gradient-to-br from-neon-green/20 to-neon-green/5 border border-neon-green/30 max-w-md mx-auto card-gradient">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="h-12 w-12 rounded-full bg-neon-green/20 flex items-center justify-center">
-                  <span className="text-2xl">🎉</span>
-                </div>
-                <div className="text-left">
-                  <p className="text-neon-green font-semibold text-lg">You're on the list!</p>
-                  <p className="text-gray-400 text-sm">Check your email for next steps</p>
-                </div>
-              </div>
+            <div className="text-center text-green-600 font-medium">
+              ✓ You're on the list! Check your email.
             </div>
           )}
-          
-          {/* Social proof */}
-          <div className="mt-12 flex items-center justify-center gap-8 text-sm text-gray-400">
-            <div className="flex items-center gap-2">
-              <span className="text-neon-green font-semibold">2,847</span>
-              <span>people with ADHD waiting</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Hero Image */}
-        <div className="mt-20 flow-root sm:mt-24">
-          <div className="relative mx-auto max-w-5xl">
-            <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-transparent to-transparent z-10" />
-            <div className="relative rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-900/20 p-1 ring-1 ring-white/10">
-              <img
-                src="/hero-v2.svg"
-                alt="Before and after room organization with AI detection"
-                className="rounded-xl shadow-2xl w-full"
-              />
-              <div className="absolute -bottom-4 -right-4 bg-neon-green text-black px-4 py-2 rounded-full font-semibold text-sm shadow-lg float">
-                ✨ Real AI detection
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section className="py-24 px-6 lg:px-8 relative">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Built for ADHD brains
-            </h2>
-            <p className="text-xl text-gray-400">
-              We know "just clean your room" isn't helpful advice
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: "🧠",
-                title: "Zero decisions",
-                desc: "AI decides where everything goes. You just follow."
-              },
-              {
-                icon: "⚡",
-                title: "5-minute tasks",
-                desc: "Bite-sized chunks you can actually finish."
-              },
-              {
-                icon: "🎯",
-                title: "Visual guidance",
-                desc: "See exactly what to pick up with highlighted boxes."
-              },
-              {
-                icon: "🏆",
-                title: "Instant wins",
-                desc: "Dopamine hits with every completed micro-task."
-              },
-              {
-                icon: "📍",
-                title: "Never lose items",
-                desc: "Everything gets a home. Search finds it instantly."
-              },
-              {
-                icon: "🔄",
-                title: "Maintains itself",
-                desc: "Daily 2-minute tidies keep chaos away."
-              }
-            ].map((feature, i) => (
-              <div key={i} className="group relative p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-neon-green/50 transition-all hover:shadow-lg hover:shadow-neon-green/10">
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-400">{feature.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Preview */}
-      <section className="py-24 px-6 lg:px-8 relative">
-        <div className="mx-auto max-w-2xl">
-          <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-r from-neon-green/20 to-emerald-500/20 blur-xl opacity-50" />
-            <div className="relative rounded-3xl bg-gradient-to-b from-white/10 to-white/5 p-8 sm:p-12 ring-1 ring-white/10">
-              <div className="text-center">
-                <div className="inline-flex items-center gap-2 rounded-full bg-neon-green/10 px-3 py-1 text-sm font-medium text-neon-green mb-4">
-                  Limited time offer
-                </div>
-                <h3 className="text-3xl font-bold mb-2">Early Bird Pricing</h3>
-                <div className="mt-6 flex items-baseline justify-center gap-2">
-                  <span className="text-5xl font-bold text-neon-green">S$5</span>
-                  <span className="text-xl text-gray-400">/month</span>
-                </div>
-                <p className="mt-2 text-gray-400 line-through">Regular price: S$9.99/mo</p>
-                <p className="mt-6 text-sm font-medium text-neon-green">
-                  ✨ First 200 beta users lock in this price forever
-                </p>
-                <div className="mt-8 flex items-center justify-center gap-4 text-sm text-gray-400">
-                  <span className="flex items-center gap-1">
-                    <svg className="w-4 h-4 text-neon-green" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    Cancel anytime
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <svg className="w-4 h-4 text-neon-green" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    All features included
-                  </span>
-                </div>
-              </div>
+      {/* The transformation */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-4">From chaos to calm in 60 seconds</h2>
+          <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+            Stop the endless cycle of "clean everything → mess returns → feel defeated"
+          </p>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="text-5xl font-bold text-gray-300 mb-4">1</div>
+              <h3 className="text-xl font-semibold mb-2">Snap photos</h3>
+              <p className="text-gray-600">5 quick shots of your messy space</p>
+              <p className="text-sm text-gray-500 mt-2">No judgment. We've seen worse.</p>
+            </div>
+            <div className="text-center">
+              <div className="text-5xl font-bold text-gray-300 mb-4">2</div>
+              <h3 className="text-xl font-semibold mb-2">AI creates your map</h3>
+              <p className="text-gray-600">Every item gets a designated home</p>
+              <p className="text-sm text-gray-500 mt-2">Zones for cables, clothes, keys, etc.</p>
+            </div>
+            <div className="text-center">
+              <div className="text-5xl font-bold text-gray-300 mb-4">3</div>
+              <h3 className="text-xl font-semibold mb-2">Never lose things again</h3>
+              <p className="text-gray-600">Search "keys" → see exactly where they live</p>
+              <p className="text-sm text-gray-500 mt-2">Your space stays organized.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-24 px-6 lg:px-8 relative">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-16">
-            60 seconds to organized
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {[
-              {
-                step: "1",
-                emoji: "📸",
-                title: "Snap photos",
-                desc: "Quick shots of your room, drawers, closet"
-              },
-              {
-                step: "2", 
-                emoji: "🤖",
-                title: "AI analyzes",
-                desc: "Identifies every item and creates your plan"
-              },
-              {
-                step: "3",
-                emoji: "✅", 
-                title: "Follow tasks",
-                desc: "Simple 5-minute chunks until done"
-              }
-            ].map((item, i) => (
-              <div key={i} className="relative text-center group">
-                {i < 2 && (
-                  <div className="hidden md:block absolute top-16 left-full w-full h-0.5 bg-gradient-to-r from-white/20 to-transparent" />
-                )}
-                <div className="mx-auto h-32 w-32 rounded-full bg-white/5 flex items-center justify-center mb-6 group-hover:bg-white/10 transition-colors">
-                  <div className="text-5xl">{item.emoji}</div>
-                  <div className="absolute -top-2 -right-2 h-8 w-8 rounded-full bg-neon-green text-black flex items-center justify-center font-bold text-sm">
-                    {item.step}
-                  </div>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                <p className="text-gray-400">{item.desc}</p>
+      {/* The mental cost */}
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">The hidden cost of a messy room</h2>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <div className="border-l-4 border-red-500 pl-6">
+                <h3 className="font-semibold text-lg mb-2">Morning panic</h3>
+                <p className="text-gray-600">"Where's my wallet?" turns into 20 minutes of frantic searching. 
+                Start every day already behind.</p>
               </div>
-            ))}
+              <div className="border-l-4 border-orange-500 pl-6">
+                <h3 className="font-semibold text-lg mb-2">Decision paralysis</h3>
+                <p className="text-gray-600">Clean up? But where does everything go? 
+                Easier to just... leave it. The pile grows.</p>
+              </div>
+              <div className="border-l-4 border-yellow-500 pl-6">
+                <h3 className="font-semibold text-lg mb-2">Constant background stress</h3>
+                <p className="text-gray-600">That nagging feeling. "I should clean." 
+                But it's overwhelming. So you don't. Anxiety builds.</p>
+              </div>
+            </div>
+            <div className="bg-green-50 rounded-xl p-8">
+              <h3 className="text-2xl font-bold mb-4">What changes when everything has a place:</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span><strong>Find anything in 5 seconds</strong> - just check your phone</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span><strong>Cleaning becomes automatic</strong> - you know exactly where things go</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span><strong>Mental clarity returns</strong> - external order creates internal calm</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span><strong>Save 2+ hours/week</strong> - no more hunting for lost items</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Social Proof */}
-      <section className="py-24 px-6 lg:px-8 bg-white/5">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-8">
-                Join thousands reclaiming their space
-              </h2>
-              <div className="space-y-6">
-                {[
-                  {
-                    text: "Finally, an app that gets how my ADHD brain works. The micro-tasks are genius!",
-                    author: "Sarah M.",
-                    tag: "Beta Tester"
-                  },
-                  {
-                    text: "I went from disaster zone to organized in one afternoon. Mind blown.",
-                    author: "Alex K.", 
-                    tag: "Early Adopter"
-                  },
-                  {
-                    text: "The AI actually sees my mess better than I do. It's like having a patient friend help.",
-                    author: "Jordan T.",
-                    tag: "ADHD Community"
-                  }
-                ].map((testimonial, i) => (
-                  <div key={i} className="p-6 rounded-xl bg-white/5 border border-white/10">
-                    <p className="text-gray-300 mb-4 italic">"{testimonial.text}"</p>
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-gradient-to-br from-neon-green/20 to-emerald-500/20" />
-                      <div>
-                        <p className="font-medium">{testimonial.author}</p>
-                        <p className="text-sm text-gray-500">{testimonial.tag}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">From our early users</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <p className="text-gray-700 mb-4">
+                "I have ADHD and I've tried everything. This is the first thing that actually stuck. 
+                <strong>My room has been clean for 3 weeks straight.</strong> That's never happened before."
+              </p>
+              <cite className="text-sm text-gray-500">– Sarah, beta user</cite>
             </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-neon-green/20 to-transparent blur-3xl" />
-              <div className="relative bg-white/5 rounded-2xl p-8 border border-white/10">
-                <h3 className="text-2xl font-bold mb-6">The ADHD tax is real</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400">Duplicate purchases</span>
-                    <span className="font-semibold">S$127/mo</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400">Lost item time</span>
-                    <span className="font-semibold">14 hrs/mo</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400">Cleaning paralysis</span>
-                    <span className="font-semibold">∞ stress</span>
-                  </div>
-                  <div className="border-t border-white/10 pt-4 mt-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-neon-green font-semibold">RoomCleaner cost</span>
-                      <span className="text-neon-green font-bold">S$5/mo</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <p className="text-gray-700 mb-4">
+                "The mental relief is real. <strong>I don't wake up anxious</strong> about the state of my room anymore. 
+                Everything has a home now."
+              </p>
+              <cite className="text-sm text-gray-500">– Mike, early access</cite>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Beta Counter */}
-      <section className="py-16 px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <div className="inline-flex items-center gap-3 rounded-full bg-white/5 px-6 py-3 text-sm border border-white/10">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-green opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-neon-green"></span>
-            </span>
-            <span className="font-medium">73 / 200 beta spots remaining</span>
-            <span className="text-gray-500">• Closes Jan 31</span>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <p className="text-gray-700 mb-4">
+                "Used to spend 30min every morning looking for things. 
+                Now I just open the app. <strong>It's like having a map of my own room.</strong>"
+              </p>
+              <cite className="text-sm text-gray-500">– Jessica, beta tester</cite>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <p className="text-gray-700 mb-4">
+                "My therapist noticed the difference. She asked what changed because 
+                <strong>I seemed less stressed.</strong> It's this app."
+              </p>
+              <cite className="text-sm text-gray-500">– David, user #42</cite>
+            </div>
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-24 px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">
-            Questions? We got you
-          </h2>
+      <section className="py-16">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">FAQ</h2>
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <div key={index} className="rounded-xl bg-white/5 border border-white/10 overflow-hidden hover:border-white/20 transition-colors">
+              <div key={index} className="border border-gray-200 rounded-lg">
                 <button
-                  onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                  className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-white/5 transition-colors"
+                  className="w-full px-6 py-4 text-left font-medium flex justify-between items-center hover:bg-gray-50"
+                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
                 >
-                  <span className="font-medium pr-4">{faq.q}</span>
-                  <span className={`text-2xl transition-transform ${expandedFaq === index ? 'rotate-45' : ''}`}>+</span>
+                  {faq.question}
+                  <span className="text-gray-400">{openFaq === index ? '−' : '+'}</span>
                 </button>
-                <div className={`px-6 overflow-hidden transition-all ${expandedFaq === index ? 'pb-5' : 'max-h-0'}`}>
-                  <p className="text-gray-400">{faq.a}</p>
-                </div>
+                {openFaq === index && (
+                  <div className="px-6 pb-4 text-gray-600">
+                    {faq.answer}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -409,88 +302,49 @@ export default function Home() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 px-6 lg:px-8 relative">
-        <div className="absolute inset-0 hero-gradient opacity-30" />
-        <div className="relative mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-            Ready to reclaim your space?
+      <section className="py-16 bg-black text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            Ready to break the cycle?
           </h2>
-          <p className="text-xl text-gray-300 mb-8">
-            Join the beta and finally get organized (for real this time)
+          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            Join thousands who've gone from "where did I put that?" to "everything has its place."
           </p>
-          {!submitted && (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          {!submitted ? (
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto flex gap-2">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="flex-1 rounded-xl bg-white/5 px-5 py-4 text-white placeholder:text-gray-500 border border-white/10 focus:border-neon-green focus:outline-none focus:ring-2 focus:ring-neon-green/20 transition-all"
+                className="flex-1 px-4 py-3 border border-gray-600 bg-black text-white rounded-lg focus:outline-none focus:border-white placeholder-gray-400"
                 required
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="glow-button rounded-xl px-8 py-4 text-base font-semibold text-black hover:text-black disabled:opacity-50"
+                className="px-6 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors"
               >
-                {loading ? 'Joining...' : 'Get Early Access'}
+                Get beta access
               </button>
             </form>
+          ) : (
+            <div className="text-green-400 font-medium">
+              ✓ Check your email for beta access
+            </div>
           )}
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative border-t border-white/10 mt-24 py-12 px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="md:col-span-2">
-              <h3 className="text-2xl font-bold mb-4 text-neon-green">RoomCleaner AI</h3>
-              <p className="text-gray-400 mb-4">
-                The first cleaning app designed specifically for ADHD brains. 
-                Turn chaos into calm, one micro-task at a time.
-              </p>
-              <div className="flex gap-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Product</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Beta Program</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="mailto:support@roomcleaner.ai" className="hover:text-white transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-400">
-              © 2025 RoomCleaner AI. Made with 💚 for the ADHD community.
-            </p>
-            <div className="flex gap-6 text-sm text-gray-400">
-              <span>Singapore 🇸🇬</span>
-            </div>
-          </div>
+      <footer className="py-8 text-center text-sm text-gray-500">
+        <p className="mb-2">Built in NYC by ex-messy people.</p>
+        <div className="space-x-4">
+          <a href="#" className="hover:text-gray-700">Privacy</a>
+          <a href="#" className="hover:text-gray-700">Terms</a>
+          <a href="mailto:emailrohun@gmail.com" className="hover:text-gray-700">emailrohun@gmail.com</a>
         </div>
       </footer>
-    </main>
+    </div>
   )
 }
