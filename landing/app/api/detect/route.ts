@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { hardcodedDetections } from '@/lib/hardcodedDetections'
 
 // Type definitions for OpenAI Vision API
 interface Detection {
@@ -107,16 +108,6 @@ Be thorough - identify EVERY visible item including small objects, partially vis
 
 // Fallback mock data
 function getMockDetections(): Detection[] {
-  return [
-    { id: 1, x: 15, y: 65, width: 8, height: 10, label: "T-shirt", category: "clothing", delay: 0 },
-    { id: 2, x: 25, y: 70, width: 6, height: 8, label: "Jeans", category: "clothing", delay: 100 },
-    { id: 3, x: 70, y: 80, width: 7, height: 6, label: "Socks", category: "clothing", delay: 200 },
-    { id: 4, x: 45, y: 75, width: 5, height: 7, label: "Hoodie", category: "clothing", delay: 300 },
-    { id: 5, x: 30, y: 40, width: 6, height: 4, label: "Phone", category: "electronics", delay: 400 },
-    { id: 6, x: 55, y: 35, width: 10, height: 6, label: "Laptop", category: "electronics", delay: 500 },
-    { id: 7, x: 40, y: 45, width: 4, height: 5, label: "Earbuds", category: "electronics", delay: 600 },
-    { id: 8, x: 65, y: 50, width: 8, height: 5, label: "Tablet", category: "electronics", delay: 700 },
-    { id: 9, x: 10, y: 50, width: 7, height: 5, label: "Textbook", category: "books", delay: 800 },
-    { id: 10, x: 20, y: 55, width: 5, height: 3, label: "Notebook", category: "books", delay: 900 }
-  ]
+  // Use the single source of truth for demo detections
+  return hardcodedDetections as Detection[]
 }
